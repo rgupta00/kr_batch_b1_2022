@@ -11,7 +11,7 @@ package q5;
  * Next date: 1/1/2023
  */
 import java.util.Scanner;
-
+//this is a procedual way---- convert into oo way 
 public class AssignQ5 {
 
 public static void main(String[] args) {
