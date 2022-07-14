@@ -6,13 +6,7 @@ public class B_QueuePriorityQue2 {
 
 	public static void main(String[] args) {
 		// how to use it ?
-		PriorityQueue<Job> priorityQueue = new PriorityQueue<>(new Comparator<Job>() {
-
-			@Override
-			public int compare(Job o1, Job o2) {
-				return Double.compare(o2.getPricePerHr(), o1.getPricePerHr());
-			}
-		});
+		PriorityQueue<Job> priorityQueue = new PriorityQueue<>();
 
 		priorityQueue.offer(new Job(12, 65));
 
