@@ -5,7 +5,7 @@ package com.a.classical_threads;
 //
 class MyJob implements Runnable {
 	@Override
-	public void run() {
+	public void run(){
 		System.out.println("job of a thread: " + Thread.currentThread().getName());
 	}
 }

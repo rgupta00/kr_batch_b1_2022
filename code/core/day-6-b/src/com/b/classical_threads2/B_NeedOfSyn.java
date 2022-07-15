@@ -1,11 +1,16 @@
 package com.b.classical_threads2;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 class Printer {
-	private Object lock=new Object();
+	private Lock lock = new ReentrantLock(true);
+
+	// private Object lock=new Object();
 	public void print(String letter) {
-		// ...............
-		// ...............
-		synchronized (lock) {
+
+		try {
+			lock.lock();
 			System.out.print("[");
 
 			try {
@@ -14,10 +19,10 @@ class Printer {
 			}
 
 			System.out.println(letter + "]");
+		} finally {
+			lock.unlock();
 		}
-		// ...............
-		// ...............
-		// ...............
+
 	}
 }
 
