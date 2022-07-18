@@ -24,7 +24,8 @@ public class AppleApp {
 //		}
 //		return apples2;
 //	}
-	// he want only red apples
+//	
+//	// he want only red apples
 //	public static  List<Apple>getAllRedApples(List<Apple> apples){
 //		List<Apple> apples2=new ArrayList<Apple>();
 //		for(Apple apple: apples) {

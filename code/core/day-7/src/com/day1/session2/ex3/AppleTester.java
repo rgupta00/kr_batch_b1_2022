@@ -11,36 +11,48 @@ public class AppleTester {
 
 	public static void main(String[] args) {
 
-		List<Apple> apples = Arrays.asList(new Apple("red", 400), new Apple("green", 300), new Apple("green", 200),
+		List<Apple> apples = Arrays.asList
+				(new Apple("red", 400), 
+						new Apple("green", 300),
+						new Apple("green", 200),
 				new Apple("red", 250));
 
+		//lambda vs method red :: 
+		
+		
 		Predicate<Apple>heavyApplesPredicate=apple-> apple.getWeight()>=300;
+		Predicate<Apple> predicate3=AppleLogic::isHeavyApple;
 		
-		List<Apple>heavyApples= AppleApp.getAllApplesOnPredicate(apples,heavyApplesPredicate );
-		for (Apple temp : heavyApples) {
-			System.out.println(temp);
-		}
-
-		Predicate<Apple> redApplesPredicate = apple -> apple.getColor().equals("red");
-
-		List<Apple> redApples = AppleApp.getAllApplesOnPredicate(apples,
-				redApplesPredicate);
+		Predicate<Apple>heavyApplesPredicateUsingMethodRef=Apple::isHeavy;
+		Predicate<Apple>p3=Apple::isGreen;
 		
-		for (Apple temp : redApples) {
-			System.out.println(temp);
-		}
-
 		
-		//heavy and red
-		Predicate<Apple>p3=redApplesPredicate.and(heavyApplesPredicate);
-		
-		List<Apple> redAndHeavyApples = AppleApp.getAllApplesOnPredicate(apples,
-				p3);
-		
-		for (Apple temp : redAndHeavyApples) {
-			System.out.println(temp);
-		}
-		
+//		
+//		List<Apple>heavyApples= AppleApp.getAllApplesOnPredicate(apples,heavyApplesPredicate );
+//		for (Apple temp : heavyApples) {
+//			System.out.println(temp);
+//		}
+//
+//		Predicate<Apple> redApplesPredicate = apple -> apple.getColor().equals("red");
+//
+//		List<Apple> redApples = AppleApp.getAllApplesOnPredicate(apples,
+//				redApplesPredicate);
+//		
+//		for (Apple temp : redApples) {
+//			System.out.println(temp);
+//		}
+//
+//		
+//		//heavy and red
+//		Predicate<Apple>p3=redApplesPredicate.and(heavyApplesPredicate);
+//		
+//		List<Apple> redAndHeavyApples = AppleApp.getAllApplesOnPredicate(apples,
+//				p3);
+//		
+//		for (Apple temp : redAndHeavyApples) {
+//			System.out.println(temp);
+//		}
+//		
 		
 //		System.out.println("Heavy one");
 //		List<Apple> heavyApples= AppleApp.getAllHeavyApples(apples);

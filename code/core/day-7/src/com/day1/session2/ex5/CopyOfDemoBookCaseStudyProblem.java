@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 
@@ -14,10 +15,22 @@ public class CopyOfDemoBookCaseStudyProblem {
 		List<Book> allBooks = loadAllBooks();
 
 		// 1. Find books with more then 400 pages
-		List<Book>booksMoreThen400Pages=allBooks.stream()
-				.filter(b-> b.getPages()>400).collect(Collectors.toList());
+//		List<Book>booksMoreThen400Pages=allBooks
+//				.stream()
+//				.filter(b-> b.getPages()>400)
+//				.collect(Collectors.toList());
+//		booksMoreThen400Pages.forEach(b->System.out.println(b));
 		
 		// 2. Find all books that are java books and more then 400 pages
+		Predicate<Book>p1=b-> b.getPages()>400;
+		Predicate<Book>p2=b->b.getSubject()==Subject.JAVA;
+		
+		
+//		List<Book>b2=allBooks
+//				.stream()
+//				.filter(p1.and(p2).negate())
+//				.collect(Collectors.toList());
+//		b2.forEach(b->System.out.println(b));
 		
 		// 3. We need the top three longest books
 	
@@ -26,6 +39,13 @@ public class CopyOfDemoBookCaseStudyProblem {
 		// 5. We need to get all the publishing years
 
 		// 6. We need all the authors names who have written a book		
+		
+		allBooks.stream()
+				.flatMap(b-> b.getAuthors().stream())
+				.map(a-> a.getName())
+				.distinct()
+				.forEach(an-> System.out.println(an));
+		
 		
 		// We need all the origin countries of the authors
 

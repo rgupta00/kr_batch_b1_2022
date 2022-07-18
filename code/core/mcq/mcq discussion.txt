@@ -1,0 +1,224 @@
+Q Consider code :
+public class Foof{
+public static void main(String str[]){
+	String s=new String (null);
+	System.out.print(s);
+	}
+}
+
+
+What is the result of compilation or execution of the code?
+A. Print null.
+B. Print nothing
+C. Compilation error
+D. Runtime error
+
+Q. public class Demo {
+	public static void main(String[] args) {
+		System.out.println(returnSomething());
+	}
+	private static int returnSomething() {
+		try{
+			return 6;
+		}finally{
+			return 9;
+		}
+	}
+}
+
+What is the result of compilation or execution of the code?
+  A. Prints 9
+  B. Results in compilation error
+  C. Results in runtime error
+  D. Print 6
+
+
+
+
+Q. What will be the result of compiling and running the following code?
+class Base {
+	public Double getValue() {
+		return 1.0;// 1
+	} 
+}
+class Base2 extends Base {
+	public Number getValue() {
+		return null;// 2
+	} 
+}
+public class Demo4 {
+	public static void main(String[] args) {
+		Base b = new Base2();
+		System.out.println(b.getValue()); // 3
+	}
+}
+Select 1 option
+A. It will print 1
+B. It will print 2.
+C. Compile time error at //1
+D. Compile time error at //2
+
+
+Q.  Which of the following are valid classes?
+
+Select 1 option
+A. public class ImaginaryNumber extends Number {
+}
+B. public class ThreeWayBoolean extends Boolean {
+}
+C. public class NewSystem extends System {
+}
+D. public class ReverseString extends String {
+}
+
+
+Q. 
+class A {
+	public static void f() {
+		System.out.println("fA");
+	}
+}
+
+class B extends A {
+	public void f() {
+		System.out.println("fB");
+	}
+	public static void main(String[] args) {
+		A a = new B();
+		a.f();
+	}
+}
+What will happen on compilation or execution of code?
+        A. fA 
+        B. fB 
+        C. Code will not compile
+        D. Code will throw runtime error
+
+
+
+
+
+Q. What will be the result of attempting to compile and run the following program?
+public class TestClass {
+	public static void main(String args[]) {
+		A o1 = new C();
+		B o2 = (B) o1;
+		System.out.println(o1.m1());
+		System.out.println(o2.i);
+	}
+}
+class A { int i = 10; int m1( ) { return i; } }
+class B extends A { int i = 20; int m1() { return i; } }
+class C extends B { int i = 30; int m1() { return i; } }
+Select 1 option
+A. The program will fail to compile.
+B. Class cast exception at runtime.
+C. It will print 30, 20.
+D. It will print 30, 30.
+E. It will print 20, 20.
+
+
+Q. Which of the following statements are true?
+A. Private methods cannot be overridden in subclasses.
+B. A subclass can override any method of a non-final superclass.
+C. An overriding method can declare that it throws a wider spectrum of checked
+exceptions than the method it is overriding.
+D. The parameter list of an overriding method must be a subset of the parameter list of
+the method that it is overriding.
+
+
+
+
+
+
+Q. class Base {
+	public static void foo(Base bObj) {
+		System.out.println("In Base.foo()");
+		bObj.bar();
+	}
+
+	public void bar() {
+		System.out.println("In Base.bar()");
+	}
+}
+
+class Derived extends Base {
+	public static void foo(Base bObj) {
+		System.out.println("In Derived.foo()");
+		bObj.bar();
+	}
+
+	public void bar() {
+		System.out.println("In Derived.bar()");
+	}
+}
+
+class OverrideTest {
+	public static void main(String[] args) {
+		Base bObj = new Derived();
+		bObj.foo(bObj);
+	}
+}
+What is the output of this program when executed?
+a)
+In Base.foo()
+In Base.bar()
+b)
+In Base.foo()
+In Derived.bar()
+c)
+In Derived.foo()
+In Base.bar()
+d)
+In Derived.foo()
+In Derived.bar()
+
+
+Q. 
+class Tree {
+	Tree getInstance() {
+		return new Tree();
+	}
+}
+
+class Fruit extends Tree {
+	// line 1
+}
+class Mango extends Fruit {
+}
+
+Which statement(s), inserted at line 1, will NOT compile?
+    A. Fruit getInstance() { return this;} 
+    B. Mango getInstance() { return this;} 
+    C. Tree getInstance() { return this;} 
+    D. Object getInstance() { return this;} 
+
+
+Q. Consider following example:
+interface xyz {
+	void abc() throws IOException;
+}
+
+interface pqr {
+	void abc() throws FileNotFoundException;
+}
+
+class Implementation implements xyz, pqr {
+   // insert code
+	{
+		/* implementation */ 
+	}
+}
+
+Which of the following statement(s) can you insert in place of “// insert code” comment?
+A. public void abc() throws IOException
+B. public void abc() throws FileNotFoundException
+C. public void abc() throws FileNotFoundException, IOException
+D. public void abc() throws IOException, FileNotFoundException
+
+
+Q. Which are true? (Choose all that apply.)
+A. "X extends Y" is correct if and only if X is a class and Y is an interface.
+B. "X extends Y" is correct if and only if X is an interface and Y is a class.
+C. "X extends Y" is correct if X and Y are either both classes or both interfaces.
+D. "X extends Y" is correct for all combinations of X and Y being classes and/or interfaces.
