@@ -1,4 +1,4 @@
-package com.dp.creational.c.builder_practice;
+package com.dp.creational.c.builder;
 
 public class Food {
 	private String name;
