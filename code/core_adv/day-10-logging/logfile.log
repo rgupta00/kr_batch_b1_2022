@@ -1,0 +1,4 @@
+INFO  | 2022-07-20 10:19:26 | [main] bookapp.Hello (Hello.java:13) - hello world logging is done
+INFO  | 2022-07-20 10:20:25 | [main] bookapp.Hello (Hello.java:13) - hello world logging is done
+INFO  | 2022-07-20 10:21:01 | [main] bookapp.Hello (Hello.java:13) - hello world logging is done
+ERROR | 2022-07-20 10:21:01 | [main] bookapp.Hello (Hello.java:19) - some ex java.lang.NumberFormatException: For input string: "22A"
