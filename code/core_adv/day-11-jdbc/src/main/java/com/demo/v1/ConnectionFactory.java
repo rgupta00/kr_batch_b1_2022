@@ -32,6 +32,10 @@ public class ConnectionFactory {
 		String url= properties.getProperty("jdbc.url");
 		String username= properties.getProperty("jdbc.username");
 		String password= properties.getProperty("jdbc.password");
+//		System.out.println(driver);
+//		System.out.println(url);
+//		System.out.println(username);
+//		System.out.println(password);
 		
 		try {
 			Class.forName(driver);

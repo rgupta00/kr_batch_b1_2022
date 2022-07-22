@@ -1,0 +1,2 @@
+INFO  | 2022-07-22 11:29:48 | [main] service.EmployeeServiceImpl (EmployeeServiceImpl.java:30) - getAll method take 11044732 ns to execute
+INFO  | 2022-07-22 11:44:43 | [main] service.EmployeeServiceImpl (EmployeeServiceImpl.java:31) - getAll method take 13647118 ns to execute

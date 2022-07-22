@@ -16,8 +16,8 @@ public class InsertEmployee {
 			Connection connection=ConnectionFactory.getConnection();
 			PreparedStatement pstmt=connection
 					.prepareStatement("insert into emp(name, salary) values(?,?)");
-			pstmt.setString(1, "neeta");
-			pstmt.setDouble(2, 56000);
+			pstmt.setString(1, "hari");
+			pstmt.setDouble(2, 44000);
 			
 			int noOfRows= pstmt.executeUpdate();// executeUpdate vs executeQuery
 			

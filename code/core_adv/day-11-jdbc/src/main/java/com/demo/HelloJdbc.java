@@ -16,12 +16,19 @@ public class HelloJdbc {
 		}
 		// 2. you need to get a jdbc connection
 
-		try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/krbatch1",
-				"postgres", "raj123")) {
+		try (Connection connection = DriverManager
+				.getConnection
+				("jdbc:postgresql://localhost:5432/krbatch1",
+				"postgres", 
+				"raj123")) {
 
 			// get the data vs change the database state
 			Statement stmt = connection.createStatement();
-			// executeQuery vs executeUpdate
+			//C: create 	R: read     U:update 			D:delete
+			
+			// executeQuery: R: read     fetch the data 
+			//executeUpdate: C: create 	U:update D:delete
+			
 			ResultSet rs = stmt.executeQuery("select * from emp");
 
 			while (rs.next()) {
