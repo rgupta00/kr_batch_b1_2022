@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	
+	
+	<!-- autowiring : aka shortcut -->
+	<bean id="bookService" class="com.bookapp.service.BookServiceImpl" autowire="byType">
+	</bean>
+	
+	<bean id="dao1" class="com.bookapp.dao.BookDaoImplJdbc"/>
+	<bean id="dao2" class="com.bookapp.dao.BookDaoImplAL" primary="true"/>
+	
+</beans>
+
+
+
+	<!-- ctr injection or setter injection -->
+	<!-- bean life cycle:   -->
+	<!-- bean eagarly using singleton pattern lazy-init="true/false" 
+		 scope="prototype"-->
+<!-- 	<bean id="bookService" class="com.bookapp.service.BookServiceImpl" >
+		<property name="bookDao" ref="dao1"></property>
+	</bean> -->
+	
+	
