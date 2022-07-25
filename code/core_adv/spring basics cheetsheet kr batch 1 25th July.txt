@@ -1,0 +1,212 @@
+
+
+Basics of Spring :
+-------------------
+1. spring help us to achive loose coupling bw the sw layer
+2. it act as a container (IOC) and use push approach
+
+3. it provide 3 things
+	1. DI
+	2. AOP
+	3. reduction of boilerplate code
+
+Hello world :
+why we need it?
+
+	think about ex:
+
+	controller layer--------------- service layer ------------ dao layer
+
+
+public interface BookDao {
+	List<String> getAll();
+}
+
+
+
+public class BookDaoImplAL implements BookDao {
+
+	@Override
+	public List<String> getAll() {
+		System.out.println("using arrrayList");
+		return Arrays.asList("adv java", "head first core java", "monk who sold the farri");
+	}
+}
+
+
+
+public class BookDaoImplJdbc implements BookDao {
+
+	@Override
+	public List<String> getAll() {
+		System.out.println("using jdbc");
+		return Arrays.asList("adv java", "head first core java", "monk who sold the farri");
+	}
+}
+
+let say dao is created by amit.... not ajay will use it in his service lyaer
+
+
+
+
+public interface BookService {
+	List<String> getAllJavaBook();
+}
+
+
+public class BookServiceImpl implements BookService {
+
+	private BookDao bookDao;
+
+	public  BookServiceImpl() {
+		this.bookDao =new BookDaoImplJdbc();	//THIS CODE PRODUCE COUPLING ... :/ WTH
+	}
+	@Override
+	public List<String> getAllJavaBook() {
+		return bookDao.getAll().stream().filter(b -> b.contains("java")).collect(Collectors.toList());
+	}
+
+}
+
+
+
+
+now comes spring :
+-----------------
+
+
+step 1: put   implementation group: 'org.springframework', name: 'spring-context', version: '5.2.9.RELEASE'
+ to gradle project as min dependency
+
+
+step 2: 
+		we have many choices for doing DI
+
+
+		1. xml
+		2. annotation
+		3. java config with annotation @Component
+		4. java config with annotaion @Bean
+
+
+
+1. xml
+-_______
+	Some concept for practice: 
+
+	<!-- ctr injection or setter injection -->
+	<!-- bean life cycle:   -->
+	<!-- bean eagarly using singleton pattern lazy-init="true/false" 
+		 scope="prototype"-->
+<!-- 	<bean id="bookService" class="com.bookapp.service.BookServiceImpl" >
+		<property name="bookDao" ref="dao1"></property>
+	</bean> -->
+	
+
+
+
+<!-- autowiring : aka shortcut -->
+	<bean id="bookService" class="com.bookapp.service.BookServiceImpl" autowire="byType">
+	</bean>
+	
+	<bean id="dao1" class="com.bookapp.dao.BookDaoImplJdbc"/>
+	<bean id="dao2" class="com.bookapp.dao.BookDaoImplAL" primary="true"/>
+	
+
+
+Note : autowire aka shortcut
+
+
+2. Annotation approach
+----------------------
+i will tell spring that i will go for annations
+
+<context:annotation-config/> <!-- hey spring i will go for annotation -->
+	<context:component-scan base-package="com.bookapp"/> <!-- look up inside these packages and go nested too -->
+	
+	
+
+
+Main code remain same in both the cases
+ApplicationContext ctx=new ClassPathXmlApplicationContext("demo.xml");
+		
+		BookService bookService=ctx.getBean("bookService", BookService.class);
+		
+		List<String> allJavaBook = bookService.getAllJavaBook();
+		allJavaBook.forEach(b-> System.out.println(b));
+		
+		
+
+
+3. java config: with @Component annotation
+	gangadhar and sharkitman
+
+
+@Configuration //<context:annotation-config/>
+@ComponentScan(basePackages = {"com.bookapp"})//<context:component-scan base-package="com.bookapp"/>
+public class AppConfig {
+
+}
+
+Note: you have to choose AnnotationConfigApplicationContext if you want to go for java configuration
+
+		ApplicationContext ctx=new AnnotationConfigApplicationContext(AppConfig.class);
+		
+		BookService bookService=ctx.getBean("bookService", BookService.class);
+		
+		List<String> allJavaBook = bookService.getAllJavaBook();
+		allJavaBook.forEach(b-> System.out.println(b));
+
+
+
+
+3. java config: with @Bean annotation
+	
+@Configuration
+@ComponentScan(basePackages = {"com.bookapp"})
+public class AppConfig {
+
+	
+	@Autowired
+	@Bean(name = "bookService")
+	public BookService getBookServiceImpl(BookDao bookDao) {
+		BookServiceImpl bookService=new BookServiceImpl();
+		bookService.setBookDao(bookDao);
+		
+		return bookService;
+	}
+	
+	//@Primary
+	//test
+	@Profile(value = "test")
+	@Bean
+	public BookDao getBookDaoImplAL() {
+		BookDao bookDao=new BookDaoImplAL();
+		return bookDao;
+	}
+	
+	
+	//dev
+	@Profile(value = "dev")
+	@Bean
+	public BookDao getBookDaoImplJdbc() {
+		BookDao bookDao=new BookDaoImplJdbc();
+		return bookDao;
+	}
+}
+
+Note : main code remain same as previous approach ie
+
+
+ApplicationContext ctx=new AnnotationConfigApplicationContext(AppConfig.class);
+		
+		BookService bookService=ctx.getBean("bookService", BookService.class);
+		
+		List<String> allJavaBook = bookService.getAllJavaBook();
+		allJavaBook.forEach(b-> System.out.println(b));
+
+
+
+
+
+
