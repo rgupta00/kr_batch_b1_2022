@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>classical js and inheritance</title>
+</head>
+<body>
+    <script>
+    function Employees(uname, age, add){
+            this.name=uname;
+            this.age=age;
+            this.add=add;
+    }
+    Employees.prototype.printDetails=function(){
+                console.log(`the emp details are ${this.name}, age is ${this.age} and add is ${this.add}`)
+    }
+    
+    function Employees(uname, age, add, salary){
+            this.name=uname;
+            this.age=age;
+            this.add=add;
+            this.salary=salary;
+    }
+
+
+    let emp=new Employees('raj',34,'dehli');
+    emp.printDetails();
+
+    let emp2=new Employees('raj',34,'dehli');
+    emp2.printDetails();
+
+    </script>
+</body>
+</html>

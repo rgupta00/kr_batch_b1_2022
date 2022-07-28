@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>object orientation in classcial js</title>
+</head>
+<body>
+    <script>
+
+// u can define funcation inside object literal
+let emp1={
+    "name":"raj",
+    printdetails: function(){
+
+    }
+};
+
+
+
+
+        //object liteal
+        // let emp1={"name":"raj"};
+        // emp1.add="delhi"
+        // let emp2={"fname":"raj"};
+
+        //funcation
+        // function createEmployees(name, age, add){
+        //     var newObj={};
+        //     newObj.name=name;
+        //     newObj.age=age;
+        //     newObj.add=add;
+
+        //     return newObj;
+        // }
+        // let emp=createEmployees('raj',34,'dehli');
+        // console.log(emp);
+
+
+        //use a constructor function
+
+
+    function Employees(uname, age, add){
+            this.name=uname;
+            this.age=age;
+            this.add=add;
+
+        //    this.printDetails=function(){
+        //         console.log(`the emp details are ${this.name}, age is ${this.age} and add is ${this.add}`)
+        //     }
+    
+    }
+    Employees.prototype.printDetails=function(){
+                console.log(`the emp details are ${this.name}, age is ${this.age} and add is ${this.add}`)
+    }
+    
+    let emp=new Employees('raj',34,'dehli');
+    emp.printDetails();
+
+    let emp2=new Employees('raj',34,'dehli');
+    emp2.printDetails();
+
+
+    </script>
+</body>
+</html>

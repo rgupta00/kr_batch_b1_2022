@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>OO in ES 6</title>
+</head>
+
+<body>
+    <script>
+        // class Employee{
+        //     constructor(name, address){
+        //         this._name=name;
+        //         this._address=address;
+        //     }
+
+        //     get name(){
+        //         return this._name;
+        //     }
+
+        //     print(){
+        //         console.log(`the persion details is ${this._name} and ${this._address}`)
+        //     }
+        // }
+
+        // let e=new Employee('raj');
+        // e.print()
+
+
+
+
+        class Animal {
+            constructor(type) {
+                this.type = type;
+            }
+            identify() {
+                console.log(this.type);
+            }
+            static create(type) {
+                return new Animal(type);
+            }
+        }
+
+        let cat =Animal.create('rat')
+        cat.identify();
+    </script>
+</body>
+
+</html>

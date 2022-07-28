@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>callback</title>
+</head>
+<body>
+    <script>
+        //if we pass a function inside a another fuction or a function retunr a another function ie higher order fuction
+
+        //syn
+
+        // function foo(){
+        //     console.log('it is foo function')
+        // }
+
+        // function bar(callback){
+        //     callback();
+        // }
+
+
+        // bar(foo);
+
+        // let foo=function(){
+        //     console.log('it is foo function')
+        // }
+
+        // function bar(callback){
+        //     callback();
+        // }
+
+
+        // bar(function(){
+        //     console.log('it is foo function')
+        // });
+
+        function bar(callback){
+            callback();
+        }
+
+
+       // bar(()=>console.log('it is foo function'));
+
+        //asyn
+        console.log('begining')
+
+        // setTimeout(() => {
+        //     console.log('i am inside settimeout')
+        // }, 500);
+
+        setTimeout(function(){
+            console.log('i am inside settimeout')
+        }, 500);
+
+        console.log('end')
+
+    </script>
+</body>
+</html>

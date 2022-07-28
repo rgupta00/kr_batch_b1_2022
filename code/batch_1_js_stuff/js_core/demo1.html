@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hello world js</title>
+</head>
+<body>
+    <h1>hello to all champs</h1>
+    <noscript>you must enable js in ur browser</noscript>
+    <script>
+    //   var name=prompt('enter your name')
+    //   document.write(name)
+
+    var arr=new Array('raj','ekta','gunika');
+    //looping : of(new ) vs in (old)
+    // for( index in arr){
+    //     console.log(arr[index])
+    // }
+    // let a=true
+    // console.log(a)
+
+    //javascript dont support function overloading
+
+    //function it is first class citizen ...class 
+
+   
+
+    // function add(a, b , c){
+    //     console.log(' function add(a, b , c)')
+    // }
+    // function add(a, b ){
+    //     console.log(' function add(a, b )')
+    // }
+
+    function add(){
+        console.log(arguments.length)
+        let sum=0;
+        let index=0;
+        while(index<arguments.length){
+            sum+=arguments[index]
+            index++
+        }
+        console.log(sum)
+    }
+
+    add(2,4)
+
+    </script>
+</body>
+</html>

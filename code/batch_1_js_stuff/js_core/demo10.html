@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // let displayColors = function (message, ...colors) {
+
+        //     console.log(message);
+        //     console.log(colors);
+
+
+        //     for (let color of colors) {
+        //         console.log(color);
+
+        //     }
+        // }
+
+        // let message="i love teaching"
+
+        // displayColors(message, 'Red','Blue','Green');
+
+
+        //Spread operator in es 6
+
+        let fname="raj";
+        let lname="gupta";
+
+        // let person={
+        //     fname:fname,
+        //     lname:lname
+        // }
+
+        let person={fname,lname};
+        console.log(`the value is ${person.fname} and ${person.lname} `)
+
+        let ob={
+            "name":"ravi",
+            "add":"delhi"
+        }
+
+        const{name, add}=ob;
+        console.log(`the value is ${name} and ${add} `)
+
+    </script>
+</body>
+
+</html>
