@@ -1,0 +1,444 @@
+Agenda session :18
+---------------------
+
+* javascript oo
+* Typescript basics
+
+* callback , Promise api,asynch await, ajax examples
+* XMLHttpRequest, get post
+* nodejs, how it works, node modules
+* httpserver with node
+
+
+
+* express js routes callback, middleware
+* mongodb basics
+* MEAN stack curd basics
+
+
+
+
+revision of oo in es6
+____________________
+
+    class Animal {
+            constructor(type) {
+                this.type = type;
+            }
+            print() {
+                console.log(`the type of animal is ${this.type}`)
+            }
+
+            static createAnimal(type){
+                return new Animal(type);
+            }
+        }
+
+        class Bird extends Animal{
+            constructor(type, location){
+                super(type)
+                this.location=location
+            }
+
+            print() {
+                super.print()
+                console.log(`the location of animal is ${this.location}`)
+            }
+
+        }
+        let a = new Bird('cat',"delhi");
+        a.createAnimal('abc')
+        a.print();
+
+
+
+
+
+basics of typescript:
+-------------------------
+	typescript help to have less problem in a big project
+	typescript= type(strong typing support) + js 
+
+
+step 1 : npm install -g typescript
+
+
+step 2: create a ts file
+
+demo.ts
+---------
+function greeting(persoName: string): void{
+    console.log(persoName)
+}
+greeting('raj')
+
+Step 3:
+-------
+tsc demo.ts it will create demo.js file (transpile to this)
+------------------------
+function greeting(persoName) {
+    console.log(persoName);
+}
+greeting('raj');
+
+
+step 4: 
+--------
+node demo.js
+
+
+
+Ex2:
+
+typescript interface: very similer to js interface:
+------------------------------------------
+
+interface Friend{
+    name: string, add: string, salary?: number
+}
+
+function printFriendsDetails(friends: Friend[]){
+    for(let friend of friends){
+        console.log(`name is ${friend.name} and add is ${friend.add} and salary is ${friend.salary}`)
+    }
+}
+
+let friendsArr=[
+    {"name":"raj","add":"del","salary":8966},
+    {"name":"abc","add":"del"}
+];
+printFriendsDetails(friendsArr)
+
+how to declare datatypes
+
+let isDone:boolean;
+
+isDone=true
+
+enum Gender{F,M}
+
+let data: Array<number>=[3,6,6];
+for(let d of data){
+    console.log(d)
+}
+
+
+
+
+
+
+//classes and inheriance with ts
+-------------------------------------
+class Emp{
+    constructor(private name: string, private salary: number){
+    }
+
+    public print(): void{
+        console.log(`the details are ${this.name} and ${this.salary}`)
+    }
+}
+
+class Programmer extends Emp{
+	//dont apply private to the argument passed to base class
+
+    constructor( name: string,  salary: number, private language: string){
+        super(name,salary)
+        this.language=language;
+    }
+
+
+    public print(): void{
+        super.print();
+        console.log(` ${this.language}`)
+    }
+}
+
+let p=new Programmer('raja',56777,'java')
+p.print();
+
+
+
+Note : how to transpile to some specific es version
+ demo.ts tsc --target es6
+
+
+
+
+callback , Promise api,asynch await, ajax examples
+-----------------------------------------------
+ u can pass an funcation into a another function or u can retun a fun from a function this is called higher order function
+
+ funtional programming 
+
+ callback: can be syn or asyn
+
+A JavaScript callback is a function which is to be executed after another function has finished execution. A more formal definition would be - Any function that is passed as an argument to another function so that it can be executed in that other function is called as a callback function
+
+
+run some hello world :
+-----------------------
+
+/promise 1. pending 2. resole and 3. receted
+
+//clean the room , remove the garbage and get the icecreaam or error
+
+let cleanRoom= function(){
+    return new Promise(function(resolve, reject){
+        resolve('clean the room...')
+    })
+}
+let removeTheGarbage= function(){
+    return new Promise(function(resolve, reject){
+        resolve('garbage is removed ')
+    })
+}
+
+let wonTheIceCream= function(){
+    return new Promise(function(resolve, reject){
+        resolve('wonTheIceCream')
+    })
+}
+
+//async and await
+
+//how to use it
+console.log('start')
+const result=async ()=>{
+    console.log('1')
+    const result1= await cleanRoom();
+    console.log('2')
+    const result2= await removeTheGarbage();
+    console.log('3')
+    const result3= await wonTheIceCream();
+    console.log('4')
+    return result3;
+}
+
+console.log('end')
+result().then(result=>console.log(result)).catch(err=> console.log(err))
+console.log('done')
+
+
+
+// console.log('hi')
+// cleanRoom().then(function(result){
+//     return removeTheGarbage(result)
+// }).then(function(result){
+//     return wonTheIceCream(result)
+// }).then(function(result){
+//     console.log('done')
+// }).catch(function(fromReject){
+//     console.log('rejected')
+// })
+// console.log('hello')
+
+
+WAP for cal that first add 1 and 2 then it result is used to 20 then then that result add 300
+--------------------------------------------------------------------------------------------
+
+const cal = (a, b) => {
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            if (a < 0 || b < 0) {
+                return rej("it is not allowed")
+            } else
+                res(a + b)
+
+        }, 100);
+    })
+}
+console.log('start')
+const resultVal=async ()=>{
+    console.log('1')
+    const val1=await cal(1,2)
+    console.log('2')
+    const val2=await cal(val1,20)
+    console.log('3')
+    const val3=await cal(val2,-6)
+    console.log('4')
+    return val3;
+}
+
+resultVal().then(val=> console.log(val))
+    .catch(e=> console.log(e))
+
+console.log('end')
+
+//1,2 => res, 20=> res, 30
+
+
+
+
+
+
+how to use fetch api with async and await
+--------------------------------------------
+fetch use xhr under the hood 
+
+
+console.log('start')
+        async function getData() {
+            console.log('1')
+            const response = await fetch('https://api.github.com/users')
+            console.log('2')
+            const users = await response.json()
+            console.log('3')
+            return users
+        }
+
+        let val = getData();
+        console.log(val)// this will print promise
+
+        val.then(data=> console.log(data)).catch(e=> console.log(e))
+
+        console.log('end')
+
+
+
+//call a api
+//https://api.github.com/users
+
+//define a function
+
+async function getData(){
+
+    const response= await fetch('https://api.github.com/users')
+    const users= await response.json()
+    return users
+}
+
+let val= getData();
+console.log(a)
+
+
+
+
+how to do in more traditional way:
+-------------------------------------
+
+ const url= 'https://api.github.com/users';
+
+      demoAjax('GET', url)
+      function demoAjax(methodType, url){
+        return fetch(url).then(res=>res.json());
+      }
+
+      //.catch(err=>console.log(err))
+      demoAjax('GET', url).then(res=> console.log(res)).catch(err=>console.log(err))
+
+    //   function demoAjax(methodType, url){
+    //      const xhr=new XMLHttpRequest();
+    //      xhr.open(methodType, url)
+    //      xhr.responseType='json';
+         
+    //      xhr.onload=function(){
+    //             console.log(xhr.response)
+    //      }
+    //      xhr.onerror=function(err){
+    //             console.log(err)
+    //      }
+    //      xhr.send(); 
+    //    }
+      
+
+
+MEAN intro and how Nodejs works?
+---------------------------------
+
+
+nodejs :
+how it works : nodejs vs v8
+LibUV
+Nodebinding
+
+
+how to create a hello wrold module:
+---------------------------------
+
+
+step 1: demo_module.js
+--------------------------
+
+create a module
+
+function add(a, b){
+    return a+b;
+}
+function mul(a, b){
+    return a*b;
+}
+
+function diff(a, b){
+    return a-b;
+}
+
+// module.exports=add;
+
+// module.exports={add: add, mul: mul, dff: diff}
+
+module.exports={ add, mul,diff}
+
+
+
+
+step 2: import that module in some client code
+--------------------------
+
+demo_client.js
+
+----------------
+const maths=require("./demo2_maths.js")
+
+let result=maths.diff(2,5);
+console.log(result)
+
+fs
+http
+postres
+...
+...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+node.exe .\<filename>.ts
+https://stackoverflow.com/questions/56199111/visual-studio-code-cmd-error-cannot-be-loaded-because-running-scripts-is-disabl/67420296#67420296
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

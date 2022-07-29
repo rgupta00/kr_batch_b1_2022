@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+     const url= 'https://api.github.com/users';
+
+      demoAjax('GET', url)
+      function demoAjax(methodType, url){
+        return fetch(url).then(res=>res.json());
+      }
+
+      //.catch(err=>console.log(err))
+      demoAjax('GET', url).then(res=> console.log(res)).catch(err=>console.log(err))
+
+    //   function demoAjax(methodType, url){
+    //      const xhr=new XMLHttpRequest();
+    //      xhr.open(methodType, url)
+    //      xhr.responseType='json';
+         
+    //      xhr.onload=function(){
+    //             console.log(xhr.response)
+    //      }
+    //      xhr.onerror=function(err){
+    //             console.log(err)
+    //      }
+    //      xhr.send(); 
+    //    }
+      
+
+    </script>
+</body>
+</html>
