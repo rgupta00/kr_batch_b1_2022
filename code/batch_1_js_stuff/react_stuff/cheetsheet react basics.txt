@@ -1,0 +1,222 @@
+Agenda session :19-batch 1
+---------------------
+* express js (Spring REST) 
+* routes callback, middleware
+* Mongodb basics
+* MEAN stack hello world
+
+* React basics fundamentals, getting started
+
+
+how to get started?
+-------------------------
+https://reactjs.org/docs/create-a-new-react-app.html
+
+step 1: install it 
+
+step 2: walk over the dir stu
+and make notes what does what
+
+step 3: configre react code snippt
+https://marketplace.visualstudio.com/items?itemName=xabikos.ReactSnippets
+
+
+
+step 4: we have create some class component and funcation component
+
+What is the diff bw class and funcatioal component?
+
+How to make components:
+
+building block of react js ... an app is made up of compoent
+
+type of component:
+
+1. funcational component:
+	are stateless compoent as u are not able to matain some state of compoment
+	Now a day we can use a  concept ie called "hooks" React 16.8 version
+
+2. class component
+ stateful component...
+
+nothing but js file: 
+Hello.jsx
+
+how to create these components ?		  <div id="root"></div>
+
+react code snippet
+
+
+
+
+
+Example class component:
+--------------------------
+
+import React, { Component } from 'react';
+
+class Hello extends Component {
+    render() {
+        return (
+            
+              <>
+                  <h3>class component hello</h3>
+                  <h3>class component hello again</h3>
+              </>
+            
+        );
+    }
+}
+
+export default Hello;
+
+
+
+
+
+
+Example funcational  component:
+--------------------------
+u can do with with => also.....
+
+import React from 'react';
+
+// var Welcome= (props) =>{
+//     return (
+//         <div>
+//             <h2>Welcome</h2>
+//         </div>
+//     );
+// }
+
+function Welcome(props) {
+    return (
+        <div>
+            <h2>Welcome</h2>
+        </div>
+    );
+}
+
+export default Welcome;
+
+
+What is react fragment?
+--------------------------
+u can not retun multiple html tags u need to wrap it into a <div> or better use react framegment
+
+               <>
+                  <h3>class component hello</h3>
+                  <h3>class component hello again</h3>
+              </>
+
+
+    <React.Fragment>
+                  <h3>class component hello</h3>
+                  <h3>class component hello again</h3>
+    </React.Fragment>
+
+
+What is prop?
+--------------
+prop is a static values that can be passed from one component to another comp
+u can not change it
+
+how to use it?
+------------
+
+function App() {
+  return (
+    <div className="App">
+      <h2>hello to react js !!</h2>
+      <Welcome /> <br/>
+      <Welcome2 name="raj" city="delhi"/> <br/>
+      <Welcome2 name="geeta" city="banglore"/> <br/>
+      <Hello />
+    </div>
+  );
+}
+
+export default App;
+
+how to define it?
+-----------------
+
+
+function Welcome2(props) {
+    return (
+        <div>
+            <h1>hello to welcome 2 {props.name} and {props.city}</h1>
+        </div>
+    );
+}
+
+export default Welcome2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if u get time : for NoSQL
+	https://www.youtube.com/watch?v=qI_g07C_Q5I&t=1s
+
+if u want to learn something more in easy language
+https://www.youtube.com/c/Techsithtube/playlists
+
+
+
+
+
+
+
+
+
+
+
+node.exe .\<filename>.ts
+https://stackoverflow.com/questions/56199111/visual-studio-code-cmd-error-cannot-be-loaded-because-running-scripts-is-disabl/67420296#67420296
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
