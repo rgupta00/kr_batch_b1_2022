@@ -1,0 +1,339 @@
+
+MEAN: MERN stack:
+------------------
+
+Express basics:
+-----------------
+
+
+-g --force
+
+What is express : is a js lib used to create routes
+ very similer to Spring rest
+
+=> easy to use and configure ...
+
+step 1:
+sudo npm install express
+sudo npm install nodemon
+
+
+step 2:
+write hello world 
+
+demo1.js
+-------------
+let express= require('express')
+let app=express();
+
+app.get("/", function(req, resp){
+    resp.send('hello to all from express')
+})
+
+//routing parameter
+// emp3?empId=111&deptId=2
+
+
+//PathVaraible ?
+app.get("/emp3", function(req, resp){
+    resp.send(req.query)
+})
+
+
+//routing parameter
+// emp2/111/dept/10
+
+
+//RequestParameter :how to get it in expess
+app.get("/emp2/:empId/dept/:dept", function(req, resp){
+
+    resp.send(req.params.empId)
+})
+
+
+app.get("/emp", function(req, resp){
+    resp.send('emp')
+})
+app.get("/admin", function(req, resp){
+    resp.send('admin')
+})
+
+app.get("/home", function(req, resp){
+    resp.send('home')
+})
+
+app.get("/abc*pqr", function(req, resp){
+    resp.send('home')
+})
+
+app.listen(3500);
+console.log('working...')
+
+
+handler function or callback in express:
+-------------------------------------------
+
+//filter is used to protect the servlet api*
+//we can configure some handler function that can run before the routes..
+// even we can configure chain of handline
+//i want to do loggin before any req for route is done
+
+	User ------------>	urlChecker-----hm2--Admin
+
+
+
+let express= require('express')
+let app=express();
+
+app.get("/", function(req, resp){
+    resp.send('hello to all from express')
+})
+
+//filter is used to protect the servlet api*
+//we can configure some handler function that can run before the routes..
+// even we can configure chain of handline
+//i want to do loggin before any req for route is done
+let urlChecker= function(req, resp, next){
+    console.log('urlChecker url requrest is : '+req.originalUrl);
+    next();
+}
+
+let urlChecker2= function(req, resp, next){
+    console.log('urlChecker2 url requrest is : '+req.originalUrl);
+    next();
+}
+
+//app.use(urlChecker);
+
+app.get("/admin",[urlChecker2 , urlChecker] ,function(req, resp){
+    resp.send('admin')
+})
+
+app.get("/user", function(req, resp){
+    resp.send('user')
+})
+
+app.listen(3500);
+console.log('working...')
+
+
+
+Mongodb: NoSQL : Not Only SQL
+
+	RDBMS for there app
+	time have change....
+	google is using 
+		doc database : Mongodb ? it store the data into BSON formate
+		graph databse ...Neo4j + spring boot
+	If u want: CAP , ACID vs Base of RDBMS...
+
+how to write hello wrold crud application with mongodb:
+--------------------------------------------------------
+https://www.youtube.com/watch?v=Ph1Z97X6xno&t=163s
+
+
+Table -----------> collection
+column-----------> key
+value ------------value
+records/tuples -------- document/ object
+
+
+show dbs
+use batchb1;
+show collections
+
+how to insert:
+--------------
+
+db.emps.insert({ename:"raj",age:40, salary:3000});
+db.emps.insert({ename:"ekta",age:35, salary:3300});
+db.emps.insert({ename:"kapil",age:50, salary:4000});
+db.emps.insert({ename:"seema",age:50, salary:4000, nationality:"us"});
+
+
+how to display:
+--------------
+db.emps.find();
+
+
+
+how to display:
+--------------
+db.emps.find();
+
+db.emps.find().pretty();
+
+
+udpate:
+-----------
+db.emps.update({ename:"raj"},{$set:{salary:3400}})
+
+
+delete:
+db.emps.remove({ename:"raj"})
+
+https://www.guru99.com/mongodb-tutorials.html
+
+
+
+what is _v in node:
+--------------------
+https://stackoverflow.com/questions/12495891/what-is-the-v-field-in-mongoose
+
+
+whats-the-difference-between-findoneandupdate-and-findoneandreplace
+---------------------------------------------------------------------
+https://stackoverflow.com/questions/39153460/whats-the-difference-between-findoneandupdate-and-findoneandreplace
+
+
+
+
+
+
+
+
+MEAN demo example:
+____________________
+Angular<--------> Express <------> mongodb
+		Nodejs		   mongoose	
+
+
+
+crud application: book application
+________________________________
+how to write curd application
+
+step1: databasse 
+
+use batchb1;
+	
+steps 1: create databse and collections
+
+
+db.books.insert({
+    title: 'java head first',
+    author: 'katthy',
+    category: 'java'
+})
+
+db.books.insert({
+    title: 'spring in action',
+    author: 'foo',
+    category: 'spring'
+})
+
+db.books.insert({
+    title: 'MEAN in action',
+    author: 'bar',
+    category: 'bar'
+})
+
+db.books.find();
+
+
+
+
+
+We want to create a backend application with 
+mongooes express over nodejs
+-------------------------------
+
+why mongooes?
+https://stackoverflow.com/questions/18531696/why-should-we-use-mongoose-odm-instead-of-using-directly-mongodb-with-mongodb-dr
+
+
+https://stackoverflow.com/questions/57895175/server-discovery-and-monitoring-engine-is-deprecated
+
+
+What body parser do?
+allows express to read the body and then parse that into a Json object that we can understand.
+
+
+versioning of sw:
+--------------
+         major version. miner version. big fix release
+
+	jdk 1.8.111
+
+ 
+	"express": "^4.18.1",
+	update the minor or batch version without upgarding major version
+
+ie : 4.18.1		4.18.9 ok
+ie : 4.18.1		4.40.9 ok
+ie : 4.18.1		5.18.9 Not ok
+
+			4.0.0 <4.18.1 < 5.0.0
+	
+	"express": "~4.18.1",
+
+ie : 4.18.1		4.18.9 ok
+ie : 4.18.1		4.40.9 Not ok
+ie : 4.18.1		5.18.9 Not ok
+
+
+
+step 2: create an project
+	 npm init 
+         npm install body-parser
+	npm install mongoose body-parser
+
+	express
+
+	npm install express --save
+
+step 3: create book model using mongoose
+
+
+
+
+
+
+Book.model.js
+________________
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var BookSchema = new Schema({
+  title: String,
+  author: String,
+  category: String
+});
+
+module.exports = mongoose.model('Book', BookSchema);
+
+
+
+
+step 4: app.js==> CRUD operation
+____________________________
+
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var Book = require('./Book.model');
+
+var port = 8080;
+var db = 'mongodb://localhost/rajdb332'
+
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true});
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.get('/', function(req, res) {
+  res.send('happy to be here');
+});
+
+
+
+app.listen(port, function() {
+  console.log('app listening on port ' + port);
+});
+
+
+
