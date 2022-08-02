@@ -1,0 +1,703 @@
+React basics:
+-------------
+=> React is an open source, JavaScript library for developing user interface (UI) in web application.
+=> React is developed and released by Facebook
+
+
+
+=> ReactJS is a simple, feature rich, component based JavaScript UI library. 
+=> ReactJS provides minimal and solid feature set to kick-start a web application.
+=> React community compliments React library by providing large set of ready-made 
+	components to develop web application in a record time. 
+	React community also provides advanced concept like state management, routing, etc., on top of the React library.
+
+
+
+React hello world :
+-------------------
+React elements
+JavaScript representation of HTML DOM. React provides an API, React.createElement to create React Element.
+
+JSX
+A JavaScript extension to design user interface. JSX is an XML based, extensible 
+	language supporting HTML syntax with little modification. 
+	JSX can be compiled to React Elements and used to create user interface.
+
+
+	
+
+import React from 'react';
+function Welcome() {
+    return (
+        <div>
+            <h1>welcome component</h1>
+        </div>
+    );
+}
+export default Welcome;
+
+
+
+function App() {
+  return (
+    <div className="App">
+     <Welcome/>
+    </div>
+  );
+}
+
+using arrrow function: it dont have it own this
+
+var Welcome= ()=> {
+    return (
+        <div>
+            <h1>welcome component</h1>
+        </div>
+    );
+}
+
+class component:
+------------------
+
+
+import React, { Component } from 'react';
+
+class Hello extends Component {
+    render() {
+        return (
+            <div>
+            <h2>welcome class component</h2>     
+            </div>
+        );
+    }
+}
+export default Hello;
+
+
+React Fragment
+----------------
+ * most of the time we need to return multiple elements from a component
+ * react fragment help us to retrun multiple elements from a component
+ * Other alternative is to use a html element like dive to wrap them, but using extra html code
+	can cause some sementic issues
+
+
+   <React.Fragment>
+            <h1>welcome component</h1>
+            <h1>welcome component</h1>
+      </React.Fragment>
+
+   <>
+            <h1>welcome component</h1>
+            <h1>welcome component</h1>
+  </>
+
+prop react:
+-------------
+Conceptually, components are like JavaScript functions.
+ They accept arbitrary inputs (called “props”) and 
+return React elements describing what should appear on the screen
+
+
+function App() {
+  return (
+    <div className="App">
+     <Welcome city="delhi"/>
+     <Hello name="raj" address="delhi"/>
+    </div>
+  );
+}
+
+function Welcome(props) {
+    return (
+        <div>
+           <h3>{props.city}</h3> 
+        </div>
+    );
+}
+
+
+class Hello extends Component {
+    render() {
+        return (
+            <div>
+            <h2>welcome class component</h2>   
+            <h2> name of person is {this.props.name} and add is {this.props.address}</h2>  
+            </div>
+        );
+    }
+}
+
+
+Call function on Event in React
+----------------------------
+
+function with  funcational component
+-------------------
+function Welcome(props) {
+    function clickMe(){
+        alert('hello')
+    }
+    return (
+        <div>
+           <h3>{props.city}</h3> <br/>
+           <button onClick={()=> clickMe()}>click me</button>
+
+        </div>
+    );
+}
+
+
+
+
+function with  class component
+----------------------------
+class Hello extends Component {
+    clickMe(){
+        alert('click me')
+    }
+    render() {
+        return (
+            <div>
+           	...
+            <button onClick={()=>this.clickMe()}>click me</button>
+
+            </div>
+        );
+    }
+}
+
+state in reactjs?
+----------------
+state is a javascript object that store a components dynamic data and determine the component behaviour
+as state is dynamic it enable a component to keep track of changing information in between renders and for it to be 
+dynamic and interactive , state can only be used within the class components
+
+
+funcation : stateless component, we can use state using hooks concepts
+class: is stateful component
+
+
+class First extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            name:'super', 
+            age:32
+        }
+    }
+
+    changeState(){
+        this.state.age=22;//change the state but dont re render the value
+        this.setState({name:'dev',age: this.state.age+1 })
+    }
+    render() {
+        return (
+            <div>
+                {this.state.name} {this.state.age} <br/>
+                <button onClick={()=>this.changeState()}>click me</button>
+        
+            </div>
+        );
+    }
+}
+
+Do and dont of Do's and Don'ts of setState 
+-----------------------------------
+
+Always make use of setState and never modify the state directly
+
+this.state.count= this state count+1 	wrong way
+
+
+this.setState({
+count.this.state.count+1
+})
+
+2. To check the updated state instantly after state has been update then Place 
+the code in the call back function which is the second argument to the setState method.
+
+Increment()(
+this.setState({
+count:this.state.count +1
+})
+console.log(this.state.count)
+)
+
+
+
+
+
+Destructuring props and state
+-------------------------
+break the complex structure into the simpler parts
+it can be used to assignment and variable decleation
+
+
+const{first, last}=ob;
+
+rather then using like:
+
+
+  {props.name} {props.address}
+
+function Second(props) {
+    const{name, address}=props
+    return (
+        <div>
+           {name} {address}
+        </div>
+    );
+}
+export default Second;
+
+
+Conditional Rendering in React
+-----------------------------
+
+class Login extends Component {
+    constructor(){
+        super()
+        this.state={
+            isLoggedIn: true
+        }
+    }
+    render() {
+        let message
+        if(this.state.isLoggedIn){
+            message=<div>welcome user</div>
+        }else{
+            message=<div>welcome guest</div>
+        }
+        return message
+    }
+}
+
+export default Login;
+
+List Rendering in React
+--------------------
+
+import React from 'react';
+
+function List(props) {
+    const emps = 
+    [{ id: 1, name: 'raj', salary: 5000 }, 
+    {id: 2, name: 'raj', salary: 5000}, 
+    { id: 3, name: 'raj', salary: 5000 }]
+
+    const empList = emps.map(emp => <li>{emp.id}, {emp.name}, {emp.salary}</li>)
+    return (
+        <div>
+            { empList }
+        </div>
+    );
+}
+
+
+import React from 'react';
+import List from './List';
+
+function Lists(props) {
+    const emps = 
+    [{ id: 1, name: 'raj', salary: 5000 }, 
+    {id: 2, name: 'raj', salary: 5000}, 
+    { id: 3, name: 'raj', salary: 5000 }]
+
+  
+    return (
+        <div>
+            { emps.map( emp => <List key={emp.id} emp={emp}/>) }
+        </div>
+    );
+}
+export default Lists;
+
+
+function List({emp}) {
+    return (
+        <li> {emp.id}, {emp.name}, {emp.salary}</li>
+    );
+}
+export default List;
+
+
+warning : Each child in a list should have a unique "key" prop
+
+Key:
+A key is a special string attributed that you need to include when creating list of elements
+key give the elements a stable identiy
+key help react to identity which item have changed are added or removed
+help to effcient update to ui
+
+return (
+        <div>
+            { emps.map( emp => <List key={emp.id} emp={emp}/>) }
+        </div>
+    );
+
+
+
+React Lifecycle Phases
+------------------
+
+
+
+
+How to use fetch method in react 
+-------------------------------------
+
+import React, { Component } from 'react';
+
+class User extends Component {
+    constructor(){
+        super()
+        this.state={
+            loading:true,
+            person:null
+        }
+    }
+    async componentDidMount(){
+        const url='https://randomuser.me/api/'
+        const response= await fetch(url)
+        const data= await response.json()
+        console.log(data.results[0])
+
+        this.setState({
+            loading: false,
+            person: data.results[0]
+        })
+    }
+    render() {
+        return (
+            <div>
+                {this.state.loading?<div>loading...</div>:(
+                    <div>
+                        <div>{this.state.person.email}</div>
+                        <div>{this.state.person.name.title}</div>
+                        <div>{this.state.person.gender}</div>
+                    </div>
+                )}
+            </div>
+        );
+    }
+}
+
+export default User;
+
+https://github.com/rgupta00/kr_batch_b1_2022/blob/master/code/spring_rest/spring%20rest%20cheetsheet%20batch%201.txt
+
+fetch data with axios
+-----------------------
+npm install axios --save
+
+import axios from 'axios';
+import React, { Component } from 'react';
+
+class User extends Component {
+    constructor(){
+        super()
+        this.state={
+            loading:true,
+            person:null
+        }
+    }
+    async componentDidMount(){
+        const url='https://randomuser.me/api/'
+        const response= await axios(url)
+        const data= await response.data
+      
+        this.setState({
+            loading: false,
+            person: data.results[0]
+        })
+    }
+    render() {
+        return (
+            <div>
+                {this.state.loading?<div>loading...</div>:(
+                    <div>
+                        <div>{this.state.person.email}</div>
+                        <div>{this.state.person.name.title}</div>
+                        <div>{this.state.person.gender}</div>
+                    </div>
+                )}
+            </div>
+        );
+    }
+}
+
+export default User;
+
+
+
+
+
+
+
+
+
+step 1: create react project
+---------------------------------------
+
+add bootstrap to index.html under the head tag
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+step 2: create ListEmpComponent component
+-------------------------------------------
+
+npm install axios --save
+
+import React, { Component } from 'react';
+
+class ListEmpComponent extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            employees:[]
+        }
+    }
+    render() {
+        return (
+            <div>
+            <h2 className="text-center">Employees List</h2>
+            <div className = "row">
+                   <table className = "table table-striped table-bordered">
+
+                       <thead>
+                           <tr>
+                               <th> Employee id</th>
+                               <th> Employee Name</th>
+                               <th> Employee Salary</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           {
+                               this.state.employees.map(
+                                   employee => 
+                                   <tr key = {employee.id}>
+					 <td> { employee.id} </td>   
+                                        <td> { employee.name} </td>   
+                                        <td> {employee.salary}</td>
+                                   </tr>
+                               )
+                           }
+                       </tbody>
+                   </table>
+
+            </div>
+
+       </div>
+        );
+    }
+}
+
+export default ListEmpComponent;
+
+
+
+
+
+service layer:
+--------------------
+
+
+import axios from 'axios';
+
+const EMPLOYEE_API_BASE_URL = "http://localhost:8090/empapp/api/employees";
+
+class EmployeeService {
+
+    getEmployees(){
+        return axios.get(EMPLOYEE_API_BASE_URL);
+    }
+
+    createEmployee(employee){
+        return axios.post(EMPLOYEE_API_BASE_URL, employee);
+    }
+
+    getEmployeeById(employeeId){
+        return axios.get(EMPLOYEE_API_BASE_URL + '/' + employeeId);
+    }
+
+    updateEmployee(employee, employeeId){
+        return axios.put(EMPLOYEE_API_BASE_URL + '/' + employeeId, employee);
+    }
+
+    deleteEmployee(employeeId){
+        return axios.delete(EMPLOYEE_API_BASE_URL + '/' + employeeId);
+    }
+}
+
+export default new EmployeeService()
+
+
+
+now displaying records:
+---------------------
+import React, { Component } from 'react';
+import EmployeeService from '../services/EmployeeService';
+
+class ListEmpComponent extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            employees:[]
+        }
+    }
+    componentDidMount(){
+        EmployeeService.getEmployees().then((res)=>{
+            this.setState({employees: res.data})
+        })
+    }
+    render() {
+        return (
+            <div>
+            <h2 className="text-center">Employees List</h2>
+            <div className = "row">
+                   <table className = "table table-striped table-bordered">
+
+                       <thead>
+                           <tr>
+                               <th> Employee id</th>
+                               <th> Employee Name</th>
+                               <th> Employee Salary</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           {
+                               this.state.employees.map(
+                                   employee => 
+                                   <tr key = {employee.id}>
+                                        <td> { employee.id} </td>   
+                                        <td> { employee.name} </td>   
+                                        <td> {employee.salary}</td>
+                                   </tr>
+                               )
+                           }
+                       </tbody>
+                   </table>
+
+            </div>
+
+       </div>
+        );
+    }
+}
+
+export default ListEmpComponent;
+
+
+
+create EmpHeaderComponent component
+-----------------------------------------
+
+class EmpHeaderComponent extends Component {
+    render() {
+        return (
+            <div>
+                <header>
+                    <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+                    <div><a href="https://www.google.co.in/" className="navbar-brand">Employee Management App</a></div>
+                    </nav>
+                </header> 
+            </div>
+        );
+    }
+}
+
+export default EmpHeaderComponent;
+
+
+
+
+
+create EmpFooterComponent component
+-----------------------------------------
+
+import React, { Component } from 'react';
+
+class EmpFooterComponent extends Component {
+    render() {
+        return (
+            <div>
+                <footer className = "footer">
+                    <span className="text-muted">All Rights Reserved 2022 @UKG</span>
+                </footer>
+            </div>
+        );
+    }
+}
+
+export default EmpFooterComponent;
+
+
+use in App.js
+--------------
+
+
+
+import './App.css';
+import EmpFooterComponent from './components/EmpFooterComponent';
+import EmpHeaderComponent from './components/EmpHeaderComponent';
+import ListEmpComponent from './components/ListEmpComponent';
+
+function App() {
+  return (
+    <div>
+      <EmpHeaderComponent />
+      <div className='container'>
+        <ListEmpComponent />
+      </div>
+      <EmpFooterComponent />
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
