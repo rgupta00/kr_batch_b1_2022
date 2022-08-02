@@ -7,7 +7,6 @@ class Hello extends Component {
               <React.Fragment>
                   <h3>class component hello</h3>
                   <h3>our motive is : {this.props.motive}</h3>
-
               </React.Fragment>
             
         );

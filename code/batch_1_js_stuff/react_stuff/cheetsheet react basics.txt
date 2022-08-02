@@ -155,6 +155,222 @@ export default Welcome2;
 
 
 
+How to mantain states in react classes?
+------------------------------
+
+1. first define what state u wnat to change into ctr of class
+ this.state={
+            name: 'raja',
+            age:35
+        }
+
+2. if some onClick event happen i want to change the state
+changeStateFoo(){
+   
+   // console.log(this.state.age)
+    this.setState({name:'java dev', age: this.state.age+1})
+   }
+
+
+3. if u run it then u get to know that this.setState works in asyn way
+so if u want to log the latest value dont this
+
+if some onClick event happen i want to change the state
+changeStateFoo(){
+   
+   console.log(this.state.age)
+    this.setState({name:'java dev', age: this.state.age+1})
+    console.log(this.state.age)
+   }
+
+4. better register a callback, told him to log the value once setState 
+-------------------------------------------------------------------
+changeStateFoo(){
+   
+   console.log(this.state.age)
+    this.setState({name:'java dev', age: this.state.age+1}, funcation(){
+		 console.log(this.state.age)
+	)
+   
+   }
+
+u can refactor it:
+-----------------
+changeStateFoo(){
+   
+   console.log(this.state.age)
+    this.setState({name:'java dev', age: this.state.age+1}, ()=>console.log(this.state.age))
+	
+   }
+
+
+
+Final code:
+------------
+
+class First extends Component {
+    //in order to use the state we can user a property 
+    //that is called state and it is avalible on this
+   constructor(props){
+        super(props)
+        this.state={
+            name: 'raja',
+            age:35
+        }
+   }
+
+   changeStateFoo(){
+    //this.state.age=40;
+   // console.log(this.state.age)
+    this.setState({name:'java dev', age: this.state.age+1}, ()=>console.log(this.state.age)
+    )
+   
+   }
+   
+    render() {
+        return (
+            <div>
+                {this.state.name} ,{this.state.age} <br/>
+                <button onClick={()=> this.changeStateFoo()}>change it</button>
+            </div>
+        );
+    }
+}
+
+
+
+How to do condtional rending in react?
+-------------------------------------------
+
+what if u wnat to ui according to some condtion based on value passed from App component
+
+
+function App() {
+  return (
+    <div className="App">
+    
+      <Login loginStatus={false/true}/>
+
+    </div>
+  );
+}
+
+
+create a compoent with the name called Login and check is working
+-----------------------------------------------------------
+
+export default First;
+
+import React, { Component } from 'react';
+
+class Login extends Component {
+    constructor(props){
+        super(props)
+
+        this.state={
+            isLoggedInUser:props.loginStatus
+        }
+    }
+    render() {
+        let message
+         if(this.state.isLoggedInUser){
+            message=<div>welcome logged in user</div>
+         }else{
+            message=<div>U are  not logged in user</div>
+         }
+        return message
+    }
+}
+
+export default Login;
+
+
+With destructing concept:
+------------------------
+import React, { Component } from 'react';
+
+class Login extends Component {
+    constructor(props){
+        super(props)
+
+         const {loginStatus, username, password}=props;
+        this.state={
+            isLoggedInUser:loginStatus,
+            username:username,
+            password: password
+        }
+    }
+    render() {
+        let message
+         if(this.state.isLoggedInUser){
+            message=<div>welcome logged in user</div>
+         }else{
+            message=<div>U are  not logged in user</div>
+         }
+        return message
+    }
+}
+
+export default Login;
+
+
+how to display a static list of json object ?
+-----------------------------------------------
+import React from 'react';
+
+function Lists(props) {
+    const emps=[{id:1,name:"raj",salary:65656},
+    {id:2,name:"seema",salary:55656},
+    {id:3,name:"ekta",salary:60656}
+    ]
+    const empList=emps.map(emp=><li>{emp.id},{emp.name},{emp.salary}</li>)
+    return (
+        <div>
+            {empList}
+        </div>
+    );
+}
+
+export default Lists;
+
+
+how to refactor it so that it can delegate job of print one object to another component ie List
+----------------------------------------------------------------------------------------------
+
+import React from 'react';
+import List from './List';
+
+function Lists(props) {
+    const emps=[{id:1,name:"raj",salary:65656},
+    {id:2,name:"seema",salary:55656},
+    {id:3,name:"ekta",salary:60656}
+    ]
+
+    return (
+        <div>
+            {emps.map(emp=><List key={emp.id} emp={emp}/>)}
+        </div>
+    );
+}
+
+export default Lists;
+
+
+we can invoke one component from another and in this process we can alos pass: props
+-------------------------------------------------------------
+in this case we have also done destructuring
+
+import React from 'react';
+
+function List({emp}) {
+    return (
+        <div>
+            <li>{emp.id},{emp.name},{emp.salary}</li>
+        </div>
+    );
+}
+
+export default List;
 
 
 
@@ -162,12 +378,17 @@ export default Welcome2;
 
 
 
-
-
-
-
-
-
+                        <thead>
+                           <tr>
+                               <th> Employee id</th>
+                               <th> Employee Name</th>
+                               <th> Employee Salary</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           
+                       </tbody>
+                   </table>
 
 
 
