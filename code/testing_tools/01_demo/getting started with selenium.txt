@@ -1,0 +1,14 @@
+https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.3.0/selenium-server-4.3.0.jar
+
+
+go to help and check the version of G chrome
+chrome://settings/help
+
+https://chromedriver.storage.googleapis.com/index.html?path=103.0.5060.134/
+
+all driver on single page
+https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/
+
+
+try hello world example:
+https://opensource-demo.orangehrmlive.com/
