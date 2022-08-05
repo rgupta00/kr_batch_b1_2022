@@ -1,0 +1,289 @@
+
+how to create standard project structure for selenium:
+----------------------------------------------
+tools need:
+------------
+selenium + testNg+ ReportNg + log4j2/ slf4j+ apache poi Api + webdrivermanager
+
+junit4/junit5 ----------> testNg
+
+
+https://testng.org/testng-eclipse-update-site
+
+project structure:
+-------------------
+
+
+creating base test case:
+-----------------------
+
+public class BaseTest {
+
+	public static WebDriver driver = null;
+	public static Properties prop = null;
+	public static Properties loc = null;
+
+	@BeforeMethod
+	public void setUp() throws IOException {
+		if (driver == null) {
+			String driverType = null;
+			String url=null;
+
+			try {
+				prop = new Properties();
+				String BASE_URL = System.getProperty("user.dir");
+
+				String FILE_URL = BASE_URL + "/src/test/resources/config/driver_info.properties";
+
+				InputStream is = new FileInputStream(FILE_URL);
+
+				prop.load(is);
+
+				driverType = prop.getProperty("driver");
+				url= prop.getProperty("url");
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+			if (driverType.equalsIgnoreCase("chrome")) {
+				WebDriverManager.chromedriver().setup();
+				driver = new ChromeDriver();
+				driver.get(url);
+			} else if (driverType.equalsIgnoreCase("firefox")) {
+				WebDriverManager.firefoxdriver().setup();
+				driver = new FirefoxDriver();
+				driver.get(url);
+			} else if (driverType.equalsIgnoreCase("ie")) {
+				WebDriverManager.iedriver().setup();
+				driver = new InternetExplorerDriver();
+				driver.get(url);
+			} else {
+				throw new RuntimeException("no driver is found");
+			}
+
+		}
+	}
+	
+	@AfterMethod
+	public void tearDown() throws IOException {
+		
+	}
+}
+
+
+
+
+driver.findElement(By.id(loc.getProperty("username"))).sendKeys("Admin");
+driver.findElement(By.id(loc.getProperty("password"))).sendKeys("admin123");
+driver.findElement(By.xpath(loc.getProperty("loginbtn"))).click();
+
+
+
+
+
+
+
+
+
+
+
+
+driver_info.properties
+----------------------
+driver=chrome
+url=https://opensource-demo.orangehrmlive.com/
+
+
+locator.properties
+------------------
+username=txtUsername
+password=txtPassword
+loginbtn=btnLogin
+
+
+
+public class MyFirstTest extends BaseTest{
+
+	@Test
+	public void loginTest() {
+		
+		
+		driver.get("https://opensource-demo.orangehrmlive.com/");
+		
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		driver.findElement(By.id("txtPassword")).sendKeys("admin123");
+		driver.findElement(By.id("btnLogin")).click();
+		driver.manage().window().maximize();
+		
+		driver.close();
+	}
+}
+
+
+Now how to remove hard coded locators:
+---------------------------------------
+
+
+
+public class BaseTest {
+
+	public static WebDriver driver = null;
+	public static Properties prop = null;
+	public static Properties loc = null;
+
+	@BeforeClass
+	public void setUp() throws IOException {
+		if (driver == null) {
+			String driverType = null;
+			String url=null;
+
+			try {
+				prop = new Properties();
+				String BASE_URL = System.getProperty("user.dir");
+
+				String FILE_URL = BASE_URL + "/src/test/resources/config/driver_info.properties";
+
+				String FILE_URL_Loc = BASE_URL + "/src/test/resources/config/driver_info.properties";
+				
+				InputStream is = new FileInputStream(FILE_URL);
+
+				InputStream is2 = new FileInputStream(FILE_URL_Loc);
+				
+				prop.load(is);
+				loc.load(is2);
+				
+
+				driverType = prop.getProperty("driver");
+				url= prop.getProperty("url");
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+			if (driverType.equalsIgnoreCase("chrome")) {
+				WebDriverManager.chromedriver().setup();
+				driver = new ChromeDriver();
+				driver.get(url);
+			} else if (driverType.equalsIgnoreCase("firefox")) {
+				WebDriverManager.firefoxdriver().setup();
+				driver = new FirefoxDriver();
+				driver.get(url);
+			} else if (driverType.equalsIgnoreCase("ie")) {
+				WebDriverManager.iedriver().setup();
+				driver = new InternetExplorerDriver();
+				driver.get(url);
+			} else {
+				throw new RuntimeException("no driver is found");
+			}
+
+		}
+	}
+	
+	@AfterClass
+	public void tearDown() throws IOException {
+		
+	}
+}
+
+
+
+Using data provider:
+------------------
+@DataProvider
+
+
+public class MyFirstTest extends BaseTest{
+
+	@Test(dataProvider = "testdata")
+	public void loginTest(String username, String password) {
+		
+
+		driver.get("https://opensource-demo.orangehrmlive.com/");
+		
+		driver.findElement(By.id("txtUsername")).sendKeys(username);
+		driver.findElement(By.id("txtPassword")).sendKeys(password);
+		driver.findElement(By.id("btnLogin")).click();
+		driver.manage().window().maximize();
+		
+		driver.close();
+	}
+	
+	@DataProvider(name="testdata")
+	public Object[][] testData(){
+		return new Object[][] {
+			{"Admin","admin123"}
+//			{"Admin","admin123"}
+		};
+	}
+}
+
+
+
+
+
+// https://mvnrepository.com/artifact/org.apache.poi/poi
+implementation group: 'org.apache.poi', name: 'poi', version: '5.2.0'
+
+// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.0.0'
+
+
+
+// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas
+implementation group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '4.1.2'
+
+
+// https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+
+
+
+
+
+--------------------
+All dependencies
+--------------------
+ // This dependency is exported to consumers, that is to say found on their compile classpath.
+    api 'org.apache.commons:commons-math3:3.6.1'
+
+    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
+    implementation 'com.google.guava:guava:29.0-jre'
+
+  
+    
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.0.3'
+
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.1.2'
+   
+    testImplementation group: 'org.testng', name: 'testng', version: '7.4.0'
+   
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
+    
+    // https://mvnrepository.com/artifact/org.uncommons/reportng
+   // testImplementation group: 'org.uncommons', name: 'reportng', version: '1.1.4'
+    
+   // implementation group: 'org.apache.poi', name: 'poi', version: '5.1.0'
+    
+// https://mvnrepository.com/artifact/org.apache.poi/poi
+implementation group: 'org.apache.poi', name: 'poi', version: '5.2.0'
+
+// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.0.0'
+
+
+
+// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas
+implementation group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '4.1.2'
+
+
+// https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-compress
+implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.21'
+
+
